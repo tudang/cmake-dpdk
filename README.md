@@ -1,5 +1,11 @@
 # Dependencies
-  Required DPDK commit 1ffee690eaa10b1b50deb230755ea4ceaa373e0f
+  Required DPDK version 19.02
+
+```
+  git clone https://github.com/tudang/cmake-dpdk.git
+  git checkout v19.02
+```
+
 
 # Build
 ```
