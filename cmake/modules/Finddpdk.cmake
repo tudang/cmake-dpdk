@@ -37,7 +37,8 @@ endforeach()
 mark_as_advanced(DPDK_INCLUDE_DIR ${check_LIBRARIES})
 
 if (EXISTS ${WITH_DPDK_MLX5})
-  find_library(DPDK_rte_pmd_mlx5_LIBRARY rte_pmd_mlx5)
+    find_library(DPDK_rte_pmd_mlx5_LIBRARY rte_pmd_mlx5 
+        HINTS $ENV{RTE_SDK}/$ENV{RTE_TARGET}/lib)
   list(APPEND check_LIBRARIES ${DPDK_rte_pmd_mlx5_LIBRARY})
   mark_as_advanced(DPDK_rte_pmd_mlx5_LIBRARY)
 endif()
@@ -49,7 +50,7 @@ find_package_handle_standard_args(dpdk DEFAULT_MSG
 
 if(DPDK_FOUND)
   if(EXISTS ${WITH_DPDK_MLX5})
-    list(APPEND check_LIBRARIES -libverbs)
+    list(APPEND check_LIBRARIES -libverbs -lmlx5 -lmnl)
   endif()
   set(DPDK_LIBRARIES
     -Wl,--whole-archive ${check_LIBRARIES} -lpthread -lnuma -ldl -Wl,--no-whole-archive)
